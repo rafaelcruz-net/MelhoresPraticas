@@ -19,6 +19,7 @@ namespace MelhoresPraticas.Repository.Mapping
             builder.Property(x => x.Email).IsRequired().HasMaxLength(250);
             builder.Property(x => x.CPF).IsRequired().HasMaxLength(11);
             builder.Property(x => x.DtBirthday).IsRequired();
+            builder.Property(x => x.UserName).IsRequired();
 
             builder.HasMany(x => x.Addresses).WithOne();
             builder.HasMany(x => x.Phones).WithOne();

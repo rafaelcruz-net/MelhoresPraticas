@@ -6,6 +6,6 @@ namespace MelhoresPraticas.Domain.Account.Aggregate.Repository
 {
     public interface IUserAccountRepository
     {
-
+        List<UserAccount> GetAll();
     }
 }

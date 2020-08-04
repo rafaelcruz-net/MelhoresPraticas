@@ -16,6 +16,8 @@ namespace MelhoresPraticas.Domain.Account.Aggregate
 
         public DateTime DtBirthday { get; set; }
 
+        public String UserName { get; set; }
+
         public IList<UserAddress> Addresses { get; set; }
 
         public IList<UserPhone> Phones { get; set; }
