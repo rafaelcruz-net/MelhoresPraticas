@@ -8,18 +8,17 @@ using System.Text;
 
 namespace MelhoresPraticas.Repository.Repository
 {
-    public class UserAccountRepository : IUserAccountRepository
+    public class UserAccountRepository : RepositoryBase<UserAccount>, IUserAccountRepository
     {
         private MelhoresPraticasContext Context { get; set; }
 
-        public UserAccountRepository(MelhoresPraticasContext context)
+        public UserAccountRepository(MelhoresPraticasContext context) : base(context)
         {
             this.Context = context;
         }
 
-        public List<UserAccount> GetAll()
-        {
-            return this.Context.UserAccounts.ToList();
-        }
+
+
+
     }
 }

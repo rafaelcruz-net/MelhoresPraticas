@@ -20,9 +20,11 @@ namespace MelhoresPraticas.Controllers
         }
 
         [Route("")]
-        public ActionResult GetAll()
+        public async Task<ActionResult> GetAll()
         {
-            return Ok(this.UserAccountRepository.GetAll());
+            return Ok(await this.UserAccountRepository.GetAllByCriteria(x => x.CPF == "123456789" 
+                                                                    && x.Name.Contains("Ra")
+                                                                    || x.Id != null));
         }
 
 

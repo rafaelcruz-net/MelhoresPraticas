@@ -4,8 +4,8 @@ using System.Text;
 
 namespace MelhoresPraticas.Domain.Account.Aggregate.Repository
 {
-    public interface IUserAccountRepository
+    public interface IUserAccountRepository : IRepositoryBase<UserAccount>
     {
-        List<UserAccount> GetAll();
+        
     }
 }
