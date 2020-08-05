@@ -11,7 +11,7 @@ namespace MelhoresPraticas.Repository.Repository
     {
         public ProductRepository(MelhoresPraticasContext context) : base(context)
         {
-            this.
+            
         }
     }
 }
