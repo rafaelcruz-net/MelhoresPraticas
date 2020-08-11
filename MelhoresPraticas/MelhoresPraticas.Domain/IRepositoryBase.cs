@@ -13,7 +13,7 @@ namespace MelhoresPraticas.Domain
         Task Save(T obj);
         Task Update(object id, T obj);
         Task Delete(object id);
-        Task<T> GetOneByCriteria(Expression<Func<T, bool>> expr);
-        Task<IEnumerable<T>> GetAllByCriteria(Expression<Func<T, bool>> expr);
+        Task<T> GetOneByCriteria(ISpecification<T> spec);
+        Task<IEnumerable<T>> GetAllByCriteria(ISpecification<T> spec);
     }
 }

@@ -58,14 +58,14 @@ namespace MelhoresPraticas.Repository.Repository
             this.Context.SaveChanges();
         }
 
-        public Task<T> GetOneByCriteria(Expression<Func<T, bool>> expr)
+        public Task<T> GetOneByCriteria(ISpecification<T> spec)
         {
-            return this.Query.FirstOrDefaultAsync(expr);
+            return this.Query.FirstOrDefaultAsync(spec.SatisfyByCriteria());
         }
 
-        public Task<IEnumerable<T>> GetAllByCriteria(Expression<Func<T, bool>> expr)
+        public Task<IEnumerable<T>> GetAllByCriteria(ISpecification<T> spec)
         {
-            return Task.FromResult(this.Query.Where(expr).AsEnumerable());
+            return Task.FromResult(this.Query.Where(spec.SatisfyByCriteria()).AsEnumerable());
         }
     }
 }

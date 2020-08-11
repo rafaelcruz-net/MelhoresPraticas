@@ -22,5 +22,7 @@ namespace MelhoresPraticas.Domain.Account.Aggregate
 
         public IList<UserPhone> Phones { get; set; }
 
+       
+
     }
 }
