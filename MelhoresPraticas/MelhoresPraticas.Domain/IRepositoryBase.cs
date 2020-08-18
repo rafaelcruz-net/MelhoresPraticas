@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MelhoresPraticas.Domain
 {
-    public interface IRepositoryBase<T> where T : class
+    public interface IRepositoryBase<T> : IUnitOfWork
     {
         Task<List<T>> GetAll();
         Task<T> GetById(object id);
@@ -15,5 +15,8 @@ namespace MelhoresPraticas.Domain
         Task Delete(object id);
         Task<T> GetOneByCriteria(ISpecification<T> spec);
         Task<IEnumerable<T>> GetAllByCriteria(ISpecification<T> spec);
+
+
+        
     }
 }

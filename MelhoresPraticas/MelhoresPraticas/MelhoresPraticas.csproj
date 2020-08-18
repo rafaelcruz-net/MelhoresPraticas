@@ -13,6 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MelhoresPraticas.ApplicationServices\MelhoresPraticas.ApplicationServices.csproj" />
+    <ProjectReference Include="..\MelhoresPraticas.CrossCutting\MelhoresPraticas.CrossCutting.csproj" />
     <ProjectReference Include="..\MelhoresPraticas.Repository\MelhoresPraticas.Repository.csproj" />
   </ItemGroup>
 

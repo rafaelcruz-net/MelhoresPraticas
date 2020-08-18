@@ -17,7 +17,8 @@ namespace MelhoresPraticas.Repository.Context
 
         public MelhoresPraticasContext(DbContextOptions<MelhoresPraticasContext> options) : base(options)
         {
-
+            
+            
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

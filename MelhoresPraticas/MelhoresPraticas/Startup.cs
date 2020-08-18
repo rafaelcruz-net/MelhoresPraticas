@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MelhoresPraticas.ApplicationServices.Account;
 using MelhoresPraticas.Domain.Account.Aggregate.Repository;
 using MelhoresPraticas.Domain.Product.Agreggate.Repository;
+using MelhoresPraticas.Filter;
 using MelhoresPraticas.Repository.Context;
 using MelhoresPraticas.Repository.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -32,13 +34,18 @@ namespace MelhoresPraticas
         {
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IUserAccountRepository, UserAccountRepository>();
+            services.AddTransient<IAccountService, AccountService>();
+
 
             services.AddDbContext<MelhoresPraticasContext>(opt =>
             {
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultDatabase"));
             });
 
-            services.AddControllers();
+            services.AddControllers(o =>
+            {
+                o.Filters.Add(new HttpResponseExceptionFilter());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

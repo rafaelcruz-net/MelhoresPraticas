@@ -1,12 +1,15 @@
 ﻿using MelhoresPraticas.Domain;
 using MelhoresPraticas.Repository.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace MelhoresPraticas.Repository.Repository
 {
@@ -14,7 +17,6 @@ namespace MelhoresPraticas.Repository.Repository
     {
         private DbSet<T> Query { get; set; }
         private MelhoresPraticasContext Context { get; set; }
-
 
         public RepositoryBase(MelhoresPraticasContext context)
         {
@@ -66,6 +68,26 @@ namespace MelhoresPraticas.Repository.Repository
         public Task<IEnumerable<T>> GetAllByCriteria(ISpecification<T> spec)
         {
             return Task.FromResult(this.Query.Where(spec.SatisfyByCriteria()).AsEnumerable());
+        }
+
+        public IDbContextTransaction CreateTransaction()
+        {
+            return this.Context.Database.BeginTransaction();
+        }
+
+        public void Commit()
+        {
+            this.Context.Database.CommitTransaction();
+        }
+
+        public void Rollback()
+        {
+            this.Context.Database.RollbackTransaction();
+        }
+
+        public IDbContextTransaction CreateTransaction(System.Data.IsolationLevel isolationLevel)
+        {
+            return this.Context.Database.BeginTransaction(isolationLevel);
         }
     }
 }

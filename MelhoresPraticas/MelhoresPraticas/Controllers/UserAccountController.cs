@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MelhoresPraticas.ApplicationServices.Account;
 using MelhoresPraticas.Domain;
 using MelhoresPraticas.Domain.Account.Aggregate;
 using MelhoresPraticas.Domain.Account.Aggregate.Repository;
@@ -16,10 +17,12 @@ namespace MelhoresPraticas.Controllers
     public class UserAccountController : ControllerBase
     {
         private IUserAccountRepository UserAccountRepository { get; set; }
+        private IAccountService AccountService { get; set; }
 
-        public UserAccountController(IUserAccountRepository userAccountRepository)
+        public UserAccountController(IUserAccountRepository userAccountRepository, IAccountService accountService)
         {
             this.UserAccountRepository = userAccountRepository;
+            this.AccountService = accountService;
         }
 
         [Route("")]
@@ -34,8 +37,19 @@ namespace MelhoresPraticas.Controllers
         [Route("{cpf}")]
         public async Task<ActionResult> GetAll(string cpf)
         {
-            return Ok(await this.UserAccountRepository.GetAllByCriteria(UserAccountSpecification.GetAllByCPF(cpf)));
+            return Ok(await this.UserAccountRepository.GetAllByCriteria(UserAccountSpecification.GetByCPF(cpf)));
         }
+
+
+        [Route("")]
+        [HttpPost]
+        public async Task<ActionResult> Post(UserAccount userAccount)
+        {
+
+            await this.AccountService.CreateAccount(userAccount);
+            return Created("", null);
+        }
+
 
 
     }
