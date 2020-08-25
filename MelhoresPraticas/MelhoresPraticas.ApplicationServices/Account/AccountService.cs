@@ -44,8 +44,7 @@ namespace MelhoresPraticas.ApplicationServices.Account
 
             businessException.ValidateAndThrow();
 
-
-
+            //TODO: ALTO ACOMPLAMENTO COM O EF CORE
             using (var transaction = this.UserAccountRepository.CreateTransaction(isolationLevel: System.Data.IsolationLevel.ReadUncommitted))
             {
 
