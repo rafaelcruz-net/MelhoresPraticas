@@ -8,9 +8,8 @@ namespace MelhoresPraticas.Domain
 {
     public interface IUnitOfWork
     {
-        IDbContextTransaction CreateTransaction();
-
-        IDbContextTransaction CreateTransaction(IsolationLevel isolationLevel);
+        MelhoresPraticas.CrossCutting.Transaction.IDbTransaction CreateTransaction();
+        MelhoresPraticas.CrossCutting.Transaction.IDbTransaction CreateTransaction(IsolationLevel isolationLevel);
         void Commit();
         void Rollback();
 

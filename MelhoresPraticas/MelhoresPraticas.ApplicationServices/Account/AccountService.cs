@@ -59,8 +59,5 @@ namespace MelhoresPraticas.ApplicationServices.Account
                 }
             }
         }
-
-
-
     }
 }

@@ -1,9 +1,11 @@
 ﻿using MelhoresPraticas.ApplicationServices.Account;
 using MelhoresPraticas.CrossCutting.BusinessException;
+using MelhoresPraticas.CrossCutting.Transaction;
 using MelhoresPraticas.Domain;
 using MelhoresPraticas.Domain.Account.Aggregate;
 using MelhoresPraticas.Domain.Account.Aggregate.Repository;
 using MelhoresPraticas.Domain.Account.Aggregate.Specification;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -68,12 +70,18 @@ namespace MelhoresPraticas.Tests.ApplicationServices
                                .Returns(Task.FromResult<UserAccount>(null))
                                .Returns(Task.FromResult<UserAccount>(null));
 
-            this.MockRepository.Setup(x => x.Save(It.IsAny<UserAccount>()));
+            var MockTransaction = new Mock<IDbTransaction>();
+            this.MockRepository.Setup(x => x.CreateTransaction(System.Data.IsolationLevel.ReadUncommitted)).Returns(MockTransaction.Object).Verifiable();
+            this.MockRepository.Setup(x => x.Save(It.IsAny<UserAccount>())).Verifiable();
+            MockTransaction.Setup(x => x.Commit()).Verifiable();
 
             this.AccountService.CreateAccount(UserAccount).Wait();
 
             //Assert
-            Assert.IsTrue(UserAccount.Id != Guid.Empty);
+            Assert.IsTrue(UserAccount != null);
+
+            Mock.VerifyAll();
+
 
         }
 

@@ -70,24 +70,24 @@ namespace MelhoresPraticas.Repository.Repository
             return Task.FromResult(this.Query.Where(spec.SatisfyByCriteria()).AsEnumerable());
         }
 
-        public IDbContextTransaction CreateTransaction()
+        public MelhoresPraticas.CrossCutting.Transaction.IDbTransaction CreateTransaction()
         {
-            return this.Context.Database.BeginTransaction();
+            return new MelhoresPraticas.CrossCutting.Transaction.DbTransaction(this.Context.Database.BeginTransaction());
         }
 
         public void Commit()
         {
-            this.Context.Database.CommitTransaction();
+            
         }
 
         public void Rollback()
         {
-            this.Context.Database.RollbackTransaction();
+            
         }
 
-        public IDbContextTransaction CreateTransaction(System.Data.IsolationLevel isolationLevel)
+        public MelhoresPraticas.CrossCutting.Transaction.IDbTransaction CreateTransaction(System.Data.IsolationLevel isolationLevel)
         {
-            return this.Context.Database.BeginTransaction(isolationLevel);
+            return new MelhoresPraticas.CrossCutting.Transaction.DbTransaction(this.Context.Database.BeginTransaction(isolationLevel));
         }
     }
 }
